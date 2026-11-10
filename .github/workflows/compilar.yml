@@ -6,37 +6,25 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-arm64:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Baixar Codigo Fonte
+    - name: Baixar Código Fonte
       uses: actions/checkout@v4
 
-    - name: Instalar Compilador ARM64
+    - name: Configurar Multiarquitetura e Compiladores
       run: |
+        sudo dpkg --add-architecture arm64
         sudo apt-get update
-        sudo apt-get install -y gcc-aarch64-linux-gnu
+        sudo apt-get install -y gcc-aarch64-linux-gnu libsdl2-dev:arm64
 
-    - name: Baixar Bibliotecas SDL2 ARM64
-      run: |
-        mkdir -p sdl2_libs
-        cd sdl2_libs
-        # Baixa os pacotes oficiais compilados para arquitetura ARM64 (Ubuntu)
-        wget http://ubuntu.com
-        wget http://ubuntu.com
-        
-        # Extrai os pacotes locais
-        dpkg-deb -x libsdl2-2.0-0_*.deb .
-        dpkg-deb -x libsdl2-dev_*.deb .
-        cd ..
-
-    - name: Compilar Executavel
+    - name: Compilar Executável para R36S
       run: |
         aarch64-linux-gnu-gcc main.c -o paciencia_r36s \
-          -I./sdl2_libs/usr/include/SDL2 \
-          -L./sdl2_libs/usr/lib/aarch64-linux-gnu \
-          -lSDL2 -lm -Wl,-rpath,/usr/lib/aarch64-linux-gnu
+          -I/usr/include/SDL2 \
+          -L/usr/lib/aarch64-linux-gnu \
+          -lSDL2 -lm
 
     - name: Disponibilizar para Download
       uses: actions/upload-artifact@v4
