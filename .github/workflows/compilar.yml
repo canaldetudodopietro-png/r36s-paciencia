@@ -1,0 +1,45 @@
+name: Compilar para R36S
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: # Permite compilar manualmente clicando em um botão
+
+jobs:
+  build-arm64:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Baixar o código do repositório
+      uses: actions/checkout@v4
+
+    - name: Instalar compilador ARM64 e dependências do SDL2
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc-aarch64-linux-gnu
+
+    - name: Baixar e extrair SDL2 para ARM64 (Debian/Ubuntu)
+      run: |
+        mkdir -p sdl2_arm64
+        cd sdl2_arm64
+        # Baixa os pacotes oficiais de desenvolvimento do SDL2 para arquitetura arm64
+        wget http://ubuntu.com || wget http://ubuntu.com
+        wget http://ubuntu.com || wget http://ubuntu.com
+        
+        # Extrai os arquivos binários (.so e .h) sem instalar no sistema local
+        dpkg-deb -x libsdl2-dev*.deb .
+        dpkg-deb -x libsdl2_*.deb .
+        cd ..
+
+    - name: Compilar o Executável para o R36S
+      run: |
+        aarch64-linux-gnu-gcc main.c -o paciencia_r36s \
+          -I./sdl2_arm64/usr/include/SDL2 \
+          -L./sdl2_arm64/usr/lib/aarch64-linux-gnu \
+          -lSDL2 -lm -Wl,-rpath,/usr/lib/aarch64-linux-gnu
+
+    - name: Enviar o binário pronto para Download
+      uses: actions/upload-artifact@v4
+      with:
+        name: executavel-r36s
+        path: paciencia_r36s
