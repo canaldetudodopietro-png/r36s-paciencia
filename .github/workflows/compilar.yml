@@ -1,45 +1,45 @@
-name: Compilar para R36S
+name: Compilar Paciência R36S
 
 on:
   push:
-    branches: [ "main" ]
-  workflow_dispatch: # Permite compilar manualmente clicando em um botão
+    branches: [ "main", "master" ]
+  workflow_dispatch:
 
 jobs:
-  build-arm64:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Baixar o código do repositório
+    - name: Baixar Codigo Fonte
       uses: actions/checkout@v4
 
-    - name: Instalar compilador ARM64 e dependências do SDL2
+    - name: Instalar Compilador ARM64
       run: |
         sudo apt-get update
         sudo apt-get install -y gcc-aarch64-linux-gnu
 
-    - name: Baixar e extrair SDL2 para ARM64 (Debian/Ubuntu)
+    - name: Baixar Bibliotecas SDL2 ARM64
       run: |
-        mkdir -p sdl2_arm64
-        cd sdl2_arm64
-        # Baixa os pacotes oficiais de desenvolvimento do SDL2 para arquitetura arm64
-        wget http://ubuntu.com || wget http://ubuntu.com
-        wget http://ubuntu.com || wget http://ubuntu.com
+        mkdir -p sdl2_libs
+        cd sdl2_libs
+        # Baixa os pacotes oficiais compilados para arquitetura ARM64 (Ubuntu)
+        wget http://ubuntu.com
+        wget http://ubuntu.com
         
-        # Extrai os arquivos binários (.so e .h) sem instalar no sistema local
-        dpkg-deb -x libsdl2-dev*.deb .
-        dpkg-deb -x libsdl2_*.deb .
+        # Extrai os pacotes locais
+        dpkg-deb -x libsdl2-2.0-0_*.deb .
+        dpkg-deb -x libsdl2-dev_*.deb .
         cd ..
 
-    - name: Compilar o Executável para o R36S
+    - name: Compilar Executavel
       run: |
         aarch64-linux-gnu-gcc main.c -o paciencia_r36s \
-          -I./sdl2_arm64/usr/include/SDL2 \
-          -L./sdl2_arm64/usr/lib/aarch64-linux-gnu \
+          -I./sdl2_libs/usr/include/SDL2 \
+          -L./sdl2_libs/usr/lib/aarch64-linux-gnu \
           -lSDL2 -lm -Wl,-rpath,/usr/lib/aarch64-linux-gnu
 
-    - name: Enviar o binário pronto para Download
+    - name: Disponibilizar para Download
       uses: actions/upload-artifact@v4
       with:
-        name: executavel-r36s
+        name: Jogo_Paciencia_R36S
         path: paciencia_r36s
