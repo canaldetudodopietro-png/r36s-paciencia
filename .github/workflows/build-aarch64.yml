@@ -8,9 +8,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v3
-      - name: Compilar em container arm64 (Debian bullseye, glibc 2.31 para ser compativel com CFWs antigos)
+      - name: Compilar em container arm64
         run: |
-          docker run --rm --platform linux/arm64 -v "$PWD":/w -w /w debian:bullseye bash -c \
+          docker run --rm --platform linux/arm64 -e DEBIAN_FRONTEND=noninteractive -v "$PWD":/w -w /w ubuntu:22.04 bash -c \
             "apt-get update && apt-get install -y build-essential libsdl2-dev zip && make test && make package"
       - uses: actions/upload-artifact@v4
         with:
