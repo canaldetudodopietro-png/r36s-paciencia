@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gameList>
+  <game>
+    <path>./Paciencia.sh</path>
+    <name>Paciencia</name>
+    <desc>Classic Klondike solitaire in the style of Windows 3.1. Build the four foundations from Ace to King, drag cards between the seven columns, choose Draw 1 or Draw 3, and enjoy the bouncing cards when you win.</desc>
+    <releasedate>20261112T000000</releasedate>
+    <developer>Wes Cherry (original Windows Solitaire)</developer>
+    <publisher>Open Source</publisher>
+    <genre>Card</genre>
+    <image>./paciencia/screenshot.png</image>
+  </game>
+</gameList>

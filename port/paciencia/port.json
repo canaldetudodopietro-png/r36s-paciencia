@@ -1,0 +1,33 @@
+{
+  "version": 4,
+  "name": "paciencia.zip",
+  "items": [
+    "Paciencia.sh",
+    "paciencia"
+  ],
+  "items_opt": [],
+  "attr": {
+    "title": "Paciencia",
+    "porter": [
+      "SeuNome"
+    ],
+    "desc": "Classic Klondike solitaire in the style of Windows 3.1, with original artwork. Move the cursor with the left stick or D-Pad and drag cards with A. Draw 1 or Draw 3, scoring, undo and the bouncing cards victory animation.",
+    "desc_md": null,
+    "inst": "Ready to run. No additional setup required. A drags cards (a plain click sends a card to the foundations), B makes a smart move, Y undoes, L1 switches Draw 1 / Draw 3, R1 plays every card it can to the foundations, Start deals a new game, Select quits.",
+    "inst_md": null,
+    "genres": [
+      "casino-card"
+    ],
+    "image": null,
+    "rtr": true,
+    "exp": false,
+    "runtime": [],
+    "store": [],
+    "availability": "full",
+    "reqs": [],
+    "arch": [
+      "aarch64"
+    ],
+    "min_glibc": ""
+  }
+}
