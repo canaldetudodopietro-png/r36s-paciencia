@@ -13,15 +13,3 @@ L1	Switch Draw 1 / Draw 3
 R1	Play every possible card to the foundations
 Start	New deal (press twice)
 Select	Quit (press twice)
-
-#Compile
-1. Dependencies (Debian/Ubuntu, aarch64)
-```
-sudo apt install build-essential libsdl2-dev
-```
-2. Build
-```
-git clone <repository-url>
-cd <repository>
-make
-```
